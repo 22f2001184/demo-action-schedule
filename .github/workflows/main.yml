@@ -1,0 +1,26 @@
+name: Daily Commit
+
+on:
+  schedule:
+    - cron: 15 5 * * * # runs daily at 8:00 AM UTC
+
+jobs:
+  commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Step with email 22f2001184@ds.study.iitm.ac.in
+        run: echo "This step includes the specified email"
+
+      - name: Configure Git
+        run: |
+          git config --global user.email "22f2001184@ds.study.iitm.ac.in"
+          git config --global user.name "Your Name"
+
+      - name: Create a commit
+        run: |
+          date=$(date +"%Y-%m-%d %H:%M:%S")
+          git commit --allow-empty -m "Automated commit on $date"
+          git push
